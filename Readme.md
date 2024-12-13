@@ -36,20 +36,20 @@ source venv/bin/activate
 
 4. Install Packages from requirements.txt:
 
-   ```pip3 install -r requirements.txt
-
+   ```bash
+   pip3 install -r requirements.txt
    ```
 
 # Fetch the api data
 
-```python3 main.py
-
+```bash
+python3 main.py
 ```
 
 # To run the Web App
 
-```python3 app.py
-
+```bash
+python3 app.py
 ```
 
 This will start the server, and you can access the web app by opening your browser and navigating to:
