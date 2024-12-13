@@ -40,7 +40,7 @@ source venv/bin/activate
    pip3 install -r requirements.txt
    ```
 
-# Fetch the api data
+# Fetch the api data (optional because json files are there in the repo already)
 
 The code related to the api is in api_fetcher.py in fetcher.
 API links:
