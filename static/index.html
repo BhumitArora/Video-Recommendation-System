@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Recommendation</title>
+    <script>
+      async function submitForm() {
+        const username = document.getElementById("username").value;
+        const category_name = document.getElementById("category_name").value;
+        const mood = document.getElementById("mood").value;
+
+        const response = await fetch("/recommendations/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            category_name: category_name,
+            mood: mood,
+          }),
+        });
+
+        const result = await response.json();
+        displayRecommendations(result.recommendations);
+      }
+
+      function displayRecommendations(recommendations) {
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = ""; // Clear previous results
+
+        if (recommendations.length === 0) {
+          resultDiv.innerHTML = "No recommendations found.";
+          return;
+        }
+
+        const ul = document.createElement("ul");
+        recommendations.forEach((video) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>${video.title}</strong> - <a href="${video.video_link}" target="_blank">Watch</a>`;
+          ul.appendChild(li);
+        });
+
+        resultDiv.appendChild(ul);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Video Recommendation</h1>
+
+    <label for="username">Username:</label>
+    <input
+      type="text"
+      id="username"
+      placeholder="Enter your username"
+      required
+    />
+    <br /><br />
+
+    <label for="category_name">Select Category:</label>
+    <select id="category_name">
+      <option value="Super Feed">Super Feed</option>
+      <option value="Vible">Vible</option>
+      <option value="E/ACC">E/ACC</option>
+      <option value="InstaRama">InstaRama</option>
+      <option value="Bloom Scroll">Bloom Scroll</option>
+      <option value="SolTok">SolTok</option>
+      <option value="Flic">Flic</option>
+      <option value="Pumptok">Pumptok</option>
+      <option value="OvaDrive">OvaDrive</option>
+      <option value="The Igloo">The Igloo</option>
+      <option value="Gratitube">Gratitube</option>
+      <option value="Startup College">Startup College</option>
+      <option value="Bot">Bot</option>
+    </select>
+    <br /><br />
+
+    <label for="mood">Select Mood:</label>
+    <select id="mood">
+      <option value="determination">Determination</option>
+      <option value="confidence">Confidence</option>
+      <option value="enthusiasm">Enthusiasm</option>
+      <option value="contemplation">Contemplation</option>
+      <option value="warmth">Warmth</option>
+      <option value="curiosity">Curiosity</option>
+      <option value="excitement">Excitement</option>
+      <option value="urgency">Urgency</option>
+      <option value="hope">Hope</option>
+      <option value="joy">Joy</option>
+      <option value="passion">Passion</option>
+      <option value="engagement">Engagement</option>
+      <option value="serenity">Serenity</option>
+      <option value="calmness">Calmness</option>
+      <option value="sincerity">Sincerity</option>
+      <option value="other">Other</option>
+    </select>
+    <br /><br />
+
+    <button onclick="submitForm()">Get Recommendations</button>
+
+    <p id="result"></p>
+  </body>
+</html>
